@@ -1,0 +1,11 @@
+{
+    "type": "sqlite",
+    "database": "data/dev.calender.db",
+    "entities": [
+        "dist/**/entities/**/*.entity.js"
+    ],
+    "migrations": [
+        "dist/**/migrations/**/*.js"
+    ],
+    "logging": true
+}
