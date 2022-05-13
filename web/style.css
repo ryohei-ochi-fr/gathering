@@ -1,0 +1,9 @@
+label, select, input, button {
+    font-size: 18px;
+}
+
+.ui-datepicker {
+    width: 32em;
+    padding: .2em .2em 0;
+    display: none;
+}
