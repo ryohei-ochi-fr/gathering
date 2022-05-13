@@ -36,9 +36,6 @@ git config user.email
 git init
 gibo update
 gibo dump Node VisualStudioCode > .gitignore
-echo "# github accesstoken file" >> .gitignore
-echo ".accesstoken.ini" >> .gitignore
-echo "token = hogefuga" > .accesstoken
 code .
 ```
 
@@ -107,3 +104,22 @@ git push -u origin master
 ```
 
 
+# メモ
+```powershell
+cd gathering
+nest new api
+cd api
+npm i
+
+nest g resource calender
+npm i --save @nestjs/typeorm typeorm sqlite3
+vi ormconfig.json
+vi api\src\tasks\entities\calender.entity.ts
+npm run build
+npx typeorm migration:generate -d src/database/migrations -n create-calender
+npm run build
+npx typeorm migration:run
+
+npm i @nestjs/swagger swagger-ui-express --save
+
+```
