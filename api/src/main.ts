@@ -10,7 +10,7 @@ async function bootstrap() {
   app.use('/', express.static('../web'));
 
   // url http://localhost:3000/api/
-  const options = new DocumentBuilder().setTitle('NestJS サンプル').build();
+  const options = new DocumentBuilder().setTitle('CalenderAPI(雑なネーミングは後々後悔する)').build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
 

@@ -46,7 +46,9 @@
     </body>
     <script>
 
-function postCalender() {
+const sleep = msec => new Promise(resolve => setTimeout(resolve, msec));
+
+async function postCalender() {
   var url = 'http://' + location.hostname + ':3000/calender';
   
   console.log($('#person').val());
@@ -65,11 +67,12 @@ function postCalender() {
     .then(
       (res)=> res.json())
     .then(console.log)
-    .then(setTimeout(getCalender(), 1000))
+    .then(await sleep(500))
+    .then(getCalender())
     .catch(console.error);
 }
 
-function deleteCalender() {
+async function deleteCalender() {
   var url = 'http://' + location.hostname + ':3000/calender/' + $('#person').val() + '/' + $('#CDate').val();
   const method = "DELETE";
   const body = "";
@@ -82,7 +85,8 @@ function deleteCalender() {
     .then(
       (res)=> res.json())
     .then(console.log)
-    .then(setTimeout(getCalender(), 1000))
+    .then(await sleep(500))
+    .then(getCalender())
     .catch(console.error);
 }
 

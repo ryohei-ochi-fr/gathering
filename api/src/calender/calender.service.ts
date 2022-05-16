@@ -15,18 +15,44 @@ export class CalenderService {
   ) {}
 
   async create(CreateCalenderDto: CreateCalenderDto): Promise<{ message: string }> {
-    const calender = await this.calenderRepository
-      .save({
+
+    // const targetRepository = getRepository(Calender);
+
+    const findCalender = await this.calenderRepository
+      .findOne({
         person: CreateCalenderDto.person,
         CDate: CreateCalenderDto.CDate,
-      })
-      .catch((e) => {
-        throw new InternalServerErrorException(
-          `[${e.message}] 登録に失敗しました。`,
-        );
       });
 
-      return { message: '登録に成功しました。' };
+    if( findCalender == null) {
+      // INSERT
+      await this.calenderRepository
+        .save({
+          id: null,
+          person: CreateCalenderDto.person,
+          CDate: CreateCalenderDto.CDate,
+        })
+        .catch((e) => {
+          throw new InternalServerErrorException(
+            `[${e.message}] 登録に失敗しました。`,
+          )
+        })
+    }else{
+      // UPDATE
+      await this.calenderRepository
+        .save({
+          id: findCalender.id,
+          person: CreateCalenderDto.person,
+          CDate: CreateCalenderDto.CDate,
+        })
+        .catch((e) => {
+          throw new InternalServerErrorException(
+            `[${e.message}] 更新に失敗しました。`,
+          )
+        })
+    }
+    
+    return { message: '登録に成功しました。' };
   }
 
   async findAll(): Promise<Calender[]> {
