@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "pwa-node",
+        "name": "Launch via npm",
+        "request": "launch",
+        "runtimeArgs": [
+            "run",
+            "start:debug"
+        ],
+        "runtimeExecutable": "npm",
+        "skipFiles": [
+            "<node_internals>/**"
+        ],
+        "sourceMaps": true,
+        "envFile": "${workspaceFolder}/.env",
+        "cwd": "${workspaceRoot}/api",
+        "console": "integratedTerminal",
+        "protocol": "inspector"
+      },
+    ]
+  }
