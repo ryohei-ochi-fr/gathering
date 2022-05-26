@@ -28,7 +28,7 @@
         <h1>広島支社出社予定日</h1>
         <form id="base">
           <label>名前</label>
-          <select id="person" name="person" size="1">
+          <select id="person" name="person" size="1" onchange="setCookie();">
             <option value="山口">山口</option>
             <option value="池内">池内</option>
             <option value="横田">横田</option>
@@ -58,10 +58,17 @@
 
 const sleep = msec => new Promise(resolve => setTimeout(resolve, msec));
 
+function setCookie() {
+  console.log($('#person').val());
+  $.cookie('selectedName', $('#person').val());
+}
+
 async function postCalender() {
+
+  setCookie()
+
   var url = 'http://' + location.hostname + ':3000/calender';
   
-  console.log($('#person').val());
   const obj = {
     person: $('#person').val(),
     CDate: $('#CDate').val()
@@ -83,6 +90,9 @@ async function postCalender() {
 }
 
 async function deleteCalender() {
+
+  setCookie()
+
   var url = 'http://' + location.hostname + ':3000/calender/' + $('#person').val() + '/' + $('#CDate').val();
   const method = "DELETE";
   const body = "";
@@ -100,8 +110,17 @@ async function deleteCalender() {
     .catch(console.error);
 }
 
+// 日付をYYYY-MM-DDの書式で返すメソッド
+function formatDate(dt) {
+  var y = dt.getFullYear();
+  var m = ('00' + (dt.getMonth()+1)).slice(-2);
+  var d = ('00' + dt.getDate()).slice(-2);
+  return (y + '-' + m + '-' + d);
+}
+
 window.addEventListener('load', function() {
   $('#person').val($.cookie('selectedName'));
+  $('#CDate').val(formatDate(new Date()));
 
   getCalender();
     
@@ -115,8 +134,6 @@ window.addEventListener('load', function() {
 });
 
 async function getCalender() {
-	
-  $.cookie('selectedName', $('#person').val());
   
   var url = 'http://' + location.hostname + ':3000/calender';
   fetch(url)

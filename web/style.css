@@ -3,7 +3,7 @@ label, select, input, button {
 }
 
 .ui-datepicker {
-    width: 32em;
+    width: 16em;
     padding: .2em .2em 0;
     display: none;
 }
